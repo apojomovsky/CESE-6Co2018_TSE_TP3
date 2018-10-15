@@ -11,8 +11,9 @@ void tearDown(void)
 
 }
 
-void test_ConfigureSimpleH(void)
+void test_ConfigureSimpleH_IO(void)
 {
-  TEST_ASSERT_EQUAL(1, SimpleH_Configure());
+  TEST_ASSERT_EQUAL(1, SimpleH_Configure_IO());
 }
+
 
