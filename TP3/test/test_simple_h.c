@@ -16,4 +16,8 @@ void test_ConfigureSimpleH_IO(void)
   TEST_ASSERT_EQUAL(1, SimpleH_Configure_IO());
 }
 
+void test_ConfigureSimpleH_Mode(void)
+{
+  TEST_ASSERT_EQUAL(1, SimpleH_Configure_Mode());
+}
 
