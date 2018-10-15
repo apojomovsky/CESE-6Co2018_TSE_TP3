@@ -12,6 +12,6 @@ void tearDown(void)
 
 void test_ConfigureSimpleH(void)
 {
-  TEST_FAIL_MESSAGE("Started");
+  TEST_ASSERT_EQUAL(1, SimpleH_Configure());
 }
 
