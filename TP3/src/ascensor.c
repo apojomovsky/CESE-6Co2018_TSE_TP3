@@ -1,39 +1,41 @@
+#include <stdint.h>
+
 #include "ascensor.h"
-#include "motor.h"
-#include "sensor_de_piso.h"
 
 #define NUM_PISOS 3
 
 void configurar_ascensor(ascensor_t *ascensor, sensor_de_piso_t *sensor, motor_t *motor) {
     ascensor->numPisos = NUM_PISOS;
+    configurar_sensor_de_piso(sensor, 1);
+    configurar_motor(motor, 2, 3);
     ascensor->sensorDePiso = sensor;
     ascensor->motor = motor;
-    configurar_sensor_de_piso(ascensor->sensor);
-    configurar_motor(ascensor->motor);
 }
 
-int8_t subir(ascensor_t *ascensor) {
-    if(ascensor->sensorDePiso < ascensor->numPisos) {
-        ascensor->pisoDeseado = ascensor->sensorDePiso.piso_actual() + 1;
-        ascensor->motor.subir();
-        while(ascensor->sensorDePiso != ascensor->pisoDeseado) {
-            ascensor->motor.subir();
+int8_t subir_un_piso(ascensor_t *ascensor) {
+    if(piso_actual(ascensor) < ascensor->numPisos) {
+        uint8_t pisoDeseado = piso_actual(ascensor) + 1;
+        while(piso_actual(ascensor) != pisoDeseado) {
+            subir(ascensor->motor);
         }
-        ascensor->motor.detener();
-        return ascensor->sensorDePiso.piso_actual();
+        detener(ascensor->motor);
+        return piso_actual(ascensor);
     }
     return -1;
 }
 
-int8_t bajar(ascensor_t *ascensor) {
-    if(ascensor->sensorDePiso > 1) {
-        ascensor->pisoDeseado = ascensor->sensorDePiso.piso_actual() - 1;
-        ascensor->motor.subir();
-        while(ascensor->sensorDePiso != ascensor->pisoDeseado) {
-            ascensor->motor.bajar();
+int8_t bajar_un_piso(ascensor_t *ascensor) {
+    if(piso_actual(ascensor) > 1) {
+        uint8_t pisoDeseado = piso_actual(ascensor) - 1;
+        while(piso_actual(ascensor) != pisoDeseado) {
+            bajar(ascensor->motor);
         }
-        ascensor->motor.detener();
-        return ascensor->sensorDePiso.piso_actual();
+        detener(ascensor->motor);
+        return piso_actual(ascensor);
     }
     return -1;
+}
+
+uint8_t piso_actual(ascensor_t *ascensor) {
+    return ascensor->sensorDePiso->pisoActual;
 }

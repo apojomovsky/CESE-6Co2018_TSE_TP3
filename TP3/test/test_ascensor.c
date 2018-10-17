@@ -1,23 +1,24 @@
+#include <stdint.h>
+
 #include "unity.h"
 #include "ascensor.h"
-#include "mock_motor.h"
-#include "mock_sensor_de_piso.h"
 
+ascensor_t ascensor;
+sensor_de_piso_t sensor;
+motor_t motor;
 
 void setUp(void)
 {
-  ascensor_t ascensor;
-  sensor_de_piso_t sensor;
-  motor_t motor;
   configurar_ascensor(&ascensor, &sensor, &motor);
 }
 
 void tearDown(void)
 {
-
+  return;
 }
 
-void test_ConfigurarAscensor(void)
+void test_subir_estando_en_planta_baja(void)
 {
-  TEST_ASSERT_EQUAL(TRUE, configurar_ascensor());
+  piso_actual(&ascensor);
+  TEST_ASSERT_EQUAL(1, 1);
 }

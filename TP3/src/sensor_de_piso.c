@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "sensor_de_piso.h"
 
 void configurar_sensor_de_piso(sensor_de_piso_t *sensor, uint32_t pin) {

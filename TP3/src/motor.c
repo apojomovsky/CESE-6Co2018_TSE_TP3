@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 void configurar_motor(motor_t *motor, uint32_t pinSubir, uint32_t pinBajar) {
     motor->pinSubir = pinSubir;
     motor->pinBajar = pinBajar;
